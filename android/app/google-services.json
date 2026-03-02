@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "89573235463",
+    "project_id": "wellvantage-7c94b",
+    "storage_bucket": "wellvantage-7c94b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:89573235463:android:576b2bc764dc7b56c4c3a2",
+        "android_client_info": {
+          "package_name": "com.wellvantageapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDApSPyunik3qjS73zufY7d802X9qvWVlw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

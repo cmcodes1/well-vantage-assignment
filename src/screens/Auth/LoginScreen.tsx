@@ -2,26 +2,58 @@
  * Login screen — redirects to Register (Sign Up) with Google OAuth.
  */
 
-import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useState} from 'react';
+import {
+  ActivityIndicator,
+  Alert,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useAuthStore} from '@/store';
+import {signInWithGoogle, getGoogleSignInError} from '@/services/googleAuth';
+import {GoogleIcon} from '@/components';
 import {lightColors as colors} from '@/theme/colors';
 import {radius, spacing} from '@/theme/metrics';
 import {textPresets} from '@/theme/typography';
 import type {AuthScreenProps} from '@/types/navigation';
 
-const LoginScreen: React.FC<AuthScreenProps<'Login'>> = ({navigation}) => {
+const LoginScreen: React.FC<AuthScreenProps<'Login'>> = () => {
   const setToken = useAuthStore(state => state.setToken);
+  const setUser = useAuthStore(state => state.setUser);
+  const [loading, setLoading] = useState(false);
 
-  const handleGoogleSignIn = () => {
-    // Replace with real Google auth
-    setToken('google-demo-token');
+  const handleGoogleSignIn = async () => {
+    if (loading) {
+      return;
+    }
+    setLoading(true);
+    try {
+      const {user, idToken} = await signInWithGoogle();
+      setUser({
+        id: user.uid,
+        email: user.email ?? '',
+        name: user.displayName ?? '',
+        avatar: user.photoURL ?? undefined,
+        createdAt: user.metadata.creationTime ?? new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      });
+      setToken(idToken);
+    } catch (error) {
+      const message = getGoogleSignInError(error);
+      if (message) {
+        Alert.alert('Sign-In Error', message);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <Text style={styles.title}>Sign In</Text>
+      <Text style={styles.title}>Sign Up</Text>
 
       <View style={styles.content}>
         <Text style={styles.welcomeText}>
@@ -32,19 +64,17 @@ const LoginScreen: React.FC<AuthScreenProps<'Login'>> = ({navigation}) => {
           style={styles.googleButton}
           onPress={handleGoogleSignIn}
           activeOpacity={0.7}
+          disabled={loading}
           accessibilityRole="button"
           accessibilityLabel="Continue with Google">
-          <Text style={styles.googleIcon}>G</Text>
-          <Text style={styles.googleButtonText}>Continue with Google</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Register')}
-          style={styles.linkButton}>
-          <Text style={styles.linkText}>
-            Don't have an account?{' '}
-            <Text style={styles.linkBold}>Sign Up</Text>
-          </Text>
+          {loading ? (
+            <ActivityIndicator size="small" color={colors.text} />
+          ) : (
+            <>
+              <GoogleIcon size={24} />
+              <Text style={styles.googleButtonText}>Continue with Google</Text>
+            </>
+          )}
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -84,21 +114,21 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
     borderWidth: 1,
     borderColor: colors.border,
-    borderRadius: radius['2xl'],
+    borderRadius: radius.sm,
+    elevation: 2,
+    shadowOffset: {width: 0, height: 2},
     paddingVertical: spacing.md,
     paddingHorizontal: spacing.xl,
     width: '100%',
   },
-  googleIcon: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: '#4285F4',
+  googleIconWrapper: {
     marginRight: spacing.sm,
   },
   googleButtonText: {
     ...textPresets.bodyMedium,
     color: colors.text,
     fontWeight: '500',
+    marginLeft: spacing.sm,
   },
   linkButton: {
     marginTop: spacing.xl,

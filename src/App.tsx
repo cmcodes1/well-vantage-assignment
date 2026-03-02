@@ -15,7 +15,11 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {ErrorBoundary} from '@/components/common/ErrorBoundary';
 import {RootNavigator} from '@/navigation';
+import {configureGoogleSignIn} from '@/services/googleAuth';
 import {StyleSheet} from 'react-native';
+
+// Configure Google Sign-In once at module load
+configureGoogleSignIn();
 
 const queryClient = new QueryClient({
   defaultOptions: {

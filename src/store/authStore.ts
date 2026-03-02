@@ -5,6 +5,7 @@
 import {create} from 'zustand';
 import {createJSONStorage, persist} from 'zustand/middleware';
 import {storage} from '@/services/storage';
+import {signOutGoogle} from '@/services/googleAuth';
 import type {User} from '@/types';
 
 interface AuthState {
@@ -46,7 +47,10 @@ export const useAuthStore = create<AuthState>()(
 
       setUser: (user: User) => set({user}),
 
-      logout: () => set({token: null, user: null, isAuthenticated: false}),
+      logout: () => {
+        signOutGoogle().catch(() => {});
+        set({token: null, user: null, isAuthenticated: false});
+      },
 
       setLoading: (isLoading: boolean) => set({isLoading}),
     }),

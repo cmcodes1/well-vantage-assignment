@@ -10,6 +10,7 @@ interface EnvConfig {
   API_BASE_URL: string;
   API_TIMEOUT: number;
   ENABLE_LOGGING: boolean;
+  GOOGLE_WEB_CLIENT_ID: string;
 }
 
 const development: EnvConfig = {
@@ -17,6 +18,8 @@ const development: EnvConfig = {
   API_BASE_URL: 'https://api.dev.example.com',
   API_TIMEOUT: 30_000,
   ENABLE_LOGGING: true,
+  GOOGLE_WEB_CLIENT_ID:
+    '89573235463-diikrgo2h09amrue63np67aqkm71ii6b.apps.googleusercontent.com',
 };
 
 const staging: EnvConfig = {
@@ -24,6 +27,8 @@ const staging: EnvConfig = {
   API_BASE_URL: 'https://api.staging.example.com',
   API_TIMEOUT: 30_000,
   ENABLE_LOGGING: true,
+  GOOGLE_WEB_CLIENT_ID:
+    '89573235463-diikrgo2h09amrue63np67aqkm71ii6b.apps.googleusercontent.com',
 };
 
 const production: EnvConfig = {
@@ -31,6 +36,8 @@ const production: EnvConfig = {
   API_BASE_URL: 'https://api.example.com',
   API_TIMEOUT: 15_000,
   ENABLE_LOGGING: false,
+  GOOGLE_WEB_CLIENT_ID:
+    '89573235463-diikrgo2h09amrue63np67aqkm71ii6b.apps.googleusercontent.com',
 };
 
 const configs: Record<Environment, EnvConfig> = {

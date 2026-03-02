@@ -10,3 +10,4 @@ export {
   Calendar,
 } from './common';
 export {Button, Input, Typography} from './ui';
+export {GoogleIcon} from './icons';
