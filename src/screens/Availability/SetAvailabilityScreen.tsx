@@ -96,7 +96,7 @@ const SetAvailabilityScreen: React.FC<Props> = ({navigation}) => {
         <Text style={styles.fieldLabel}>Date*</Text>
         <View style={styles.dateInput}>
           <Text style={styles.dateText}>{formatDate(selectedDate)}</Text>
-          <CalendarIcon size={18} color={colors.text} />
+          <CalendarIcon size={30} color={colors.text} />
         </View>
 
         {/* Time row */}
