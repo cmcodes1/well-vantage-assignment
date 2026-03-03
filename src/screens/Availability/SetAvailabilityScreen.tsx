@@ -14,6 +14,7 @@ import {
   View,
 } from 'react-native';
 import {Header, TabBar, Calendar} from '@/components';
+import {CalendarIcon} from '@/components/icons';
 import {lightColors as colors} from '@/theme/colors';
 import {radius, spacing, shadows} from '@/theme/metrics';
 import {textPresets} from '@/theme/typography';
@@ -39,8 +40,18 @@ const SetAvailabilityScreen: React.FC<Props> = ({navigation}) => {
 
   const formatDate = (date: Date) => {
     const months = [
-      'January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December',
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
     ];
     return `${date.getDate()} ${months[date.getMonth()]} ${date.getFullYear()}`;
   };
@@ -83,10 +94,10 @@ const SetAvailabilityScreen: React.FC<Props> = ({navigation}) => {
 
         {/* Date */}
         <Text style={styles.fieldLabel}>Date*</Text>
-        <TouchableOpacity style={styles.dateInput}>
+        <View style={styles.dateInput}>
           <Text style={styles.dateText}>{formatDate(selectedDate)}</Text>
-          <Text style={styles.calendarIcon}>📅</Text>
-        </TouchableOpacity>
+          <CalendarIcon size={18} color={colors.text} />
+        </View>
 
         {/* Time row */}
         <View style={styles.timeRow}>
@@ -190,6 +201,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.base,
     paddingVertical: spacing.md,
     backgroundColor: colors.background,
+    elevation: 2,
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
   },
   dateText: {
     ...textPresets.body,
@@ -215,6 +230,10 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.md,
     color: colors.text,
     backgroundColor: colors.background,
+    elevation: 2,
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
   },
   toggleRow: {
     flexDirection: 'row',
@@ -237,6 +256,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.borderLight,
     borderRadius: radius.md,
+    elevation: 2,
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
     paddingHorizontal: spacing.base,
     paddingVertical: spacing.md,
     color: colors.text,
@@ -244,7 +267,7 @@ const styles = StyleSheet.create({
   },
   createButton: {
     backgroundColor: colors.primary,
-    borderRadius: radius['2xl'],
+    borderRadius: radius.md,
     paddingVertical: spacing.md,
     paddingHorizontal: spacing['3xl'],
     alignSelf: 'center',

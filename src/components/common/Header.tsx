@@ -15,6 +15,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {lightColors as colors} from '@/theme/colors';
 import {spacing} from '@/theme/metrics';
 import {textPresets} from '@/theme/typography';
+import {BackIcon, MenuIcon, RefreshIcon} from '@/components/icons';
 
 interface HeaderProps {
   title: string;
@@ -41,12 +42,20 @@ export const Header: React.FC<HeaderProps> = ({
       />
       <View style={styles.content}>
         <View style={styles.leftSection}>
+          {onBackPress && (
+            <TouchableOpacity
+              onPress={onBackPress}
+              style={styles.iconButton}
+              accessibilityLabel="Go back">
+              <BackIcon size={20} color={colors.headerText} />
+            </TouchableOpacity>
+          )}
           {onMenuPress && (
             <TouchableOpacity
               onPress={onMenuPress}
               style={styles.iconButton}
               accessibilityLabel="Menu">
-              <Text style={styles.iconText}>☰</Text>
+              <MenuIcon size={22} color={colors.headerText} />
             </TouchableOpacity>
           )}
         </View>
@@ -61,15 +70,7 @@ export const Header: React.FC<HeaderProps> = ({
               onPress={onRefreshPress}
               style={styles.iconButton}
               accessibilityLabel="Refresh">
-              <Text style={styles.iconText}>↻</Text>
-            </TouchableOpacity>
-          )}
-          {onBackPress && (
-            <TouchableOpacity
-              onPress={onBackPress}
-              style={styles.iconButton}
-              accessibilityLabel="Go back">
-              <Text style={styles.iconText}>←</Text>
+              <RefreshIcon size={20} color={colors.headerText} />
             </TouchableOpacity>
           )}
         </View>

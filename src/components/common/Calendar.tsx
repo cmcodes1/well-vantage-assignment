@@ -3,10 +3,17 @@
  */
 
 import React, {useMemo, useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View, ViewStyle} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewStyle,
+} from 'react-native';
 import {lightColors as colors} from '@/theme/colors';
 import {radius, spacing} from '@/theme/metrics';
 import {textPresets} from '@/theme/typography';
+import {ChevronLeftIcon, ChevronRightIcon} from '@/components/icons';
 
 interface CalendarProps {
   selectedDate?: Date;
@@ -16,8 +23,18 @@ interface CalendarProps {
 
 const DAYS_OF_WEEK = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 const MONTH_NAMES = [
-  'January', 'February', 'March', 'April', 'May', 'June',
-  'July', 'August', 'September', 'October', 'November', 'December',
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
 ];
 
 export const Calendar: React.FC<CalendarProps> = ({
@@ -75,13 +92,13 @@ export const Calendar: React.FC<CalendarProps> = ({
       {/* Month header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={goToPrevMonth} style={styles.navButton}>
-          <Text style={styles.navText}>‹</Text>
+          <ChevronLeftIcon size={24} color={colors.text} />
         </TouchableOpacity>
         <Text style={styles.monthTitle}>
           {MONTH_NAMES[month]} {year}
         </Text>
         <TouchableOpacity onPress={goToNextMonth} style={styles.navButton}>
-          <Text style={styles.navText}>›</Text>
+          <ChevronRightIcon size={24} color={colors.text} />
         </TouchableOpacity>
       </View>
 
@@ -96,6 +113,9 @@ export const Calendar: React.FC<CalendarProps> = ({
           </View>
         ))}
       </View>
+
+      {/* Divider */}
+      <View style={styles.divider} />
 
       {/* Day grid */}
       <View style={styles.grid}>
@@ -129,8 +149,12 @@ export const Calendar: React.FC<CalendarProps> = ({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.background,
-    borderRadius: radius.lg,
+    borderRadius: radius.md,
     borderWidth: 1,
+    elevation: 3,
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
     borderColor: colors.borderLight,
     padding: spacing.md,
   },
@@ -157,13 +181,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   divider: {
-    height: 1,
-    backgroundColor: colors.borderLight,
-    marginBottom: spacing.xs,
+    height: 0.5,
+    backgroundColor: colors.planBorder,
   },
   weekRow: {
     flexDirection: 'row',
-    marginBottom: spacing.xxs,
+    marginVertical: spacing.md,
   },
   dayCell: {
     width: '14.28%',
