@@ -71,6 +71,8 @@ export const lightColors = {
   fabBackground: palette.primary,
   fabIcon: palette.white,
   planBorder: '#737373',
+  notesText: '#737373',
+  wordCounterText: '#FF9933',
 } as const;
 
 export const darkColors = {

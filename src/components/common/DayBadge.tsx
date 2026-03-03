@@ -22,9 +22,12 @@ export const DayBadge: React.FC<DayBadgeProps> = ({day, style}) => (
 const styles = StyleSheet.create({
   badge: {
     backgroundColor: colors.badgeBackground,
-    borderRadius: radius['2xl'],
+    borderTopLeftRadius: radius['2xl'],
+    borderBottomLeftRadius: radius['2xl'],
+    borderTopRightRadius: 0,
+    borderBottomRightRadius: 0,
     paddingHorizontal: spacing.md,
-    paddingVertical: spacing.xs,
+    paddingVertical: spacing.md,
     alignSelf: 'flex-start',
   },
   text: {

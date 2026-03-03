@@ -57,9 +57,12 @@ const AddWorkoutPlanScreen: React.FC<Props> = ({navigation}) => {
     {id: '3', name: 'Bench Press', sets: '8', reps: '5'},
     {id: '4', name: 'Planks', sets: '3', reps: '30 secs'},
   ]);
-  const [notes, setNotes] = useState('Bench Press: www.benchpress.com\nEat Oats');
+  const [notes, setNotes] = useState(
+    'Bench Press: www.benchpress.com\nEat Oats',
+  );
 
-  const wordsRemaining = MAX_NOTE_WORDS - notes.trim().split(/\s+/).filter(Boolean).length;
+  const wordsRemaining =
+    MAX_NOTE_WORDS - notes.trim().split(/\s+/).filter(Boolean).length;
 
   // Day management
   const addDay = useCallback(() => {
@@ -78,7 +81,9 @@ const AddWorkoutPlanScreen: React.FC<Props> = ({navigation}) => {
   }, []);
 
   const updateDayMuscle = useCallback((id: string, value: string) => {
-    setDays(prev => prev.map(d => (d.id === id ? {...d, muscleGroup: value} : d)));
+    setDays(prev =>
+      prev.map(d => (d.id === id ? {...d, muscleGroup: value} : d)),
+    );
   }, []);
 
   // Exercise management
@@ -262,7 +267,11 @@ const styles = StyleSheet.create({
     ...textPresets.bodyLarge,
     borderWidth: 1,
     borderColor: colors.borderLight,
-    borderRadius: radius.lg,
+    borderRadius: radius.md,
+    elevation: 3,
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
     paddingHorizontal: spacing.base,
     paddingVertical: spacing.md,
     color: colors.text,
@@ -308,7 +317,7 @@ const styles = StyleSheet.create({
     color: colors.text,
     width: 60,
     textAlign: 'center',
-    fontWeight: '600',
+    fontWeight: 'bold',
   },
   deleteCol: {
     width: 36,
@@ -318,8 +327,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingVertical: spacing.sm,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: colors.borderLight,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.planBorder,
   },
   exerciseName: {
     ...textPresets.body,
@@ -340,7 +349,7 @@ const styles = StyleSheet.create({
     color: colors.text,
     textAlign: 'center',
     padding: 0,
-    minWidth: 40,
+    minWidth: 55,
   },
   addExerciseFab: {
     marginVertical: spacing.lg,
@@ -353,19 +362,19 @@ const styles = StyleSheet.create({
   notesContainer: {
     borderWidth: 1,
     borderColor: colors.borderLight,
-    borderRadius: radius.lg,
+    borderRadius: radius.md,
     padding: spacing.md,
     marginTop: spacing.sm,
   },
   notesInput: {
     ...textPresets.body,
-    color: colors.text,
+    color: colors.notesText,
     minHeight: 80,
     textAlignVertical: 'top',
   },
   wordCounter: {
     ...textPresets.caption,
-    color: colors.primary,
+    color: colors.wordCounterText,
     textAlign: 'right',
     marginTop: spacing.xs,
   },
@@ -376,7 +385,7 @@ const styles = StyleSheet.create({
   // Submit
   submitButton: {
     backgroundColor: colors.primary,
-    borderRadius: radius['2xl'],
+    borderRadius: radius.xl,
     paddingVertical: spacing.md,
     paddingHorizontal: spacing['3xl'],
     alignSelf: 'center',
