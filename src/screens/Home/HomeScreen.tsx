@@ -3,7 +3,7 @@
  * Workout tab shows list of custom workout plans.
  */
 
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {
   Alert,
   FlatList,
@@ -36,8 +36,15 @@ const INITIAL_PLANS: WorkoutPlan[] = [
 
 const HomeScreen: React.FC<MainStackScreenProps<'HomeTabs'>> = ({
   navigation,
+  route,
 }) => {
   const [activeTab, setActiveTab] = useState('workout');
+
+  useEffect(() => {
+    if (route.params?.activeTab) {
+      setActiveTab(route.params.activeTab);
+    }
+  }, [route.params?.activeTab]);
   const [plans, setPlans] = useState<WorkoutPlan[]>(INITIAL_PLANS);
 
   const handleDeletePlan = useCallback((id: string) => {

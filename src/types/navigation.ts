@@ -32,7 +32,7 @@ export type MainTabParamList = {
 
 // ── Main Stack (screens within main flow) ───────────────
 export type MainStackParamList = {
-  HomeTabs: NavigatorScreenParams<MainTabParamList>;
+  HomeTabs: {activeTab?: string} | undefined;
   AddWorkoutPlan: {planId?: string} | undefined;
   SetAvailability: undefined;
   BookClientSlots: undefined;

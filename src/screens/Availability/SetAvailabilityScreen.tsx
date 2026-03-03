@@ -59,8 +59,8 @@ const SetAvailabilityScreen: React.FC<Props> = ({navigation}) => {
   const handleTabPress = useCallback(
     (key: string) => {
       setActiveTab(key);
-      if (key === 'workout') {
-        navigation.goBack();
+      if (key === 'workout' || key === 'client') {
+        navigation.navigate('HomeTabs', {activeTab: key});
       }
     },
     [navigation],
