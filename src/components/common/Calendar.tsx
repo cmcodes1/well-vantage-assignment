@@ -176,8 +176,8 @@ const styles = StyleSheet.create({
   },
   monthTitle: {
     ...textPresets.bodyMedium,
-    color: colors.text,
-    fontWeight: '600',
+    color: colors.planBorder,
+    fontWeight: 'bold',
     fontSize: 16,
   },
   divider: {
@@ -191,12 +191,11 @@ const styles = StyleSheet.create({
   dayCell: {
     width: '14.28%',
     alignItems: 'center',
-    paddingVertical: spacing.xxs,
   },
   weekDay: {
     ...textPresets.caption,
     color: colors.textSecondary,
-    fontWeight: '600',
+    fontWeight: 'bold',
     fontSize: 13,
   },
   grid: {

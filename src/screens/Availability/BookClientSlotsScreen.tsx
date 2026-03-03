@@ -100,7 +100,9 @@ const BookClientSlotsScreen: React.FC<Props> = ({navigation}) => {
             <TouchableOpacity
               style={[
                 styles.statusBadge,
-                slot.status === 'Open' ? styles.statusOpen : styles.statusBooked,
+                slot.status === 'Open'
+                  ? styles.statusOpen
+                  : styles.statusBooked,
               ]}
               activeOpacity={0.7}>
               <Text style={styles.statusText}>{slot.status}</Text>
@@ -112,7 +114,9 @@ const BookClientSlotsScreen: React.FC<Props> = ({navigation}) => {
 
         {slots.length === 0 && (
           <View style={styles.emptyState}>
-            <Text style={styles.emptyText}>No slots available for this date</Text>
+            <Text style={styles.emptyText}>
+              No slots available for this date
+            </Text>
           </View>
         )}
 
@@ -160,7 +164,7 @@ const styles = StyleSheet.create({
   },
   slotTimeBox: {
     borderWidth: 1,
-    borderColor: colors.borderLight,
+    borderColor: colors.slotBorder,
     borderRadius: radius['2xl'],
     paddingHorizontal: spacing.base,
     paddingVertical: spacing.sm,
@@ -168,7 +172,7 @@ const styles = StyleSheet.create({
   },
   slotTimeText: {
     ...textPresets.body,
-    color: colors.text,
+    color: colors.planBorder,
     textAlign: 'center',
   },
   statusBadge: {

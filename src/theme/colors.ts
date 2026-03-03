@@ -73,6 +73,7 @@ export const lightColors = {
   planBorder: '#737373',
   notesText: '#737373',
   wordCounterText: '#FF9933',
+  slotBorder: '#28A745',
 } as const;
 
 export const darkColors = {
