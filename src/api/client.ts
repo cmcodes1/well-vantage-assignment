@@ -11,6 +11,7 @@ import axios, {
 } from 'axios';
 import {env} from '@/config';
 import {storage} from '@/services/storage';
+import {useAuthStore} from '@/store';
 
 const apiClient: AxiosInstance = axios.create({
   baseURL: env.API_BASE_URL,
@@ -41,8 +42,8 @@ apiClient.interceptors.response.use(
   (response: AxiosResponse) => response,
   async (error: AxiosError) => {
     if (error.response?.status === 401) {
-      // Handle token refresh or logout here
-      storage.remove('auth_token');
+      // Clear token and reset auth state so the user is redirected to login
+      useAuthStore.getState().logout();
     }
     if (env.ENABLE_LOGGING) {
       console.error(

@@ -21,38 +21,35 @@ import {textPresets} from '@/theme/typography';
 import type {AuthScreenProps} from '@/types/navigation';
 
 const LoginScreen: React.FC<AuthScreenProps<'Login'>> = () => {
-  const setToken = useAuthStore(state => state.setToken);
-  const setUser = useAuthStore(state => state.setUser);
+  const login = useAuthStore(state => state.login);
   const [loading, setLoading] = useState(false);
 
   const handleGoogleSignIn = async () => {
-    // TODO: Restore Google Sign-In flow
-    // if (loading) {
-    //   return;
-    // }
-    // setLoading(true);
-    // try {
-    //   const {user, idToken} = await signInWithGoogle();
-    //   setUser({
-    //     id: user.uid,
-    //     email: user.email ?? '',
-    //     name: user.displayName ?? '',
-    //     avatar: user.photoURL ?? undefined,
-    //     createdAt: user.metadata.creationTime ?? new Date().toISOString(),
-    //     updatedAt: new Date().toISOString(),
-    //   });
-    //   setToken(idToken);
-    // } catch (error) {
-    //   const message = getGoogleSignInError(error);
-    //   if (message) {
-    //     Alert.alert('Sign-In Error', message);
-    //   }
-    // } finally {
-    //   setLoading(false);
-    // }
-
-    // Dev shortcut: bypass auth and go to AddWorkoutPlan
-    setToken('dev-token');
+    if (loading) {
+      return;
+    }
+    setLoading(true);
+    try {
+      const {user, idToken} = await signInWithGoogle();
+      login(
+        {
+          id: user.uid,
+          email: user.email ?? '',
+          name: user.displayName ?? '',
+          avatar: user.photoURL ?? undefined,
+          createdAt: user.metadata.creationTime ?? new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        },
+        idToken,
+      );
+    } catch (error) {
+      const message = getGoogleSignInError(error);
+      if (message) {
+        Alert.alert('Sign-In Error', message);
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

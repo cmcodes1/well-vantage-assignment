@@ -59,13 +59,22 @@ export async function signInWithGoogle(): Promise<GoogleAuthResult> {
 
 /** Sign out from both Firebase and Google. */
 export async function signOutGoogle(): Promise<void> {
-  try {
-    await GoogleSignin.revokeAccess();
-  } catch {
-    // Revoke may fail if already revoked — continue with sign out
-  }
   await GoogleSignin.signOut();
   await auth().signOut();
+}
+
+/**
+ * Refresh the Firebase ID token.
+ * Returns a fresh token if a Firebase user session exists, otherwise null.
+ * Call on app startup to replace any persisted expired tokens.
+ */
+export async function refreshFirebaseToken(): Promise<string | null> {
+  const currentUser = auth().currentUser;
+  if (!currentUser) {
+    return null;
+  }
+  // forceRefresh = true ensures a new token even if the cached one hasn't expired
+  return currentUser.getIdToken(true);
 }
 
 /**

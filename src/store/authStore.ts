@@ -13,8 +13,7 @@ interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  setToken: (token: string) => void;
-  setUser: (user: User) => void;
+  login: (user: User, token: string) => void;
   logout: () => void;
   setLoading: (loading: boolean) => void;
 }
@@ -43,12 +42,15 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
       isLoading: false,
 
-      setToken: (token: string) => set({token, isAuthenticated: true}),
-
-      setUser: (user: User) => set({user}),
+      login: (user: User, token: string) => {
+        // Write token to raw MMKV key so the API client interceptor can read it
+        storage.set('auth_token', token);
+        set({user, token, isAuthenticated: true});
+      },
 
       logout: () => {
         signOutGoogle().catch(() => {});
+        storage.remove('auth_token');
         set({token: null, user: null, isAuthenticated: false});
       },
 
