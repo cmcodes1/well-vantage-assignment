@@ -3,7 +3,8 @@
  */
 
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, ViewStyle} from 'react-native';
+import {StyleSheet, TouchableOpacity, ViewStyle} from 'react-native';
+import {DeleteIcon} from '@/components/icons';
 import {lightColors as colors} from '@/theme/colors';
 import {hitSlop} from '@/theme/metrics';
 
@@ -19,16 +20,12 @@ export const DeleteButton: React.FC<DeleteButtonProps> = ({onPress, style}) => (
     hitSlop={hitSlop}
     accessibilityRole="button"
     accessibilityLabel="Delete">
-    <Text style={styles.icon}>🗑</Text>
+    <DeleteIcon size={20} color={colors.deleteIcon} />
   </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({
   button: {
     padding: 4,
-  },
-  icon: {
-    fontSize: 20,
-    color: colors.deleteIcon,
   },
 });

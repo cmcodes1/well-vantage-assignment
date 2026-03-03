@@ -49,14 +49,6 @@ export const Header: React.FC<HeaderProps> = ({
               <Text style={styles.iconText}>☰</Text>
             </TouchableOpacity>
           )}
-          {onBackPress && (
-            <TouchableOpacity
-              onPress={onBackPress}
-              style={styles.iconButton}
-              accessibilityLabel="Go back">
-              <Text style={styles.iconText}>←</Text>
-            </TouchableOpacity>
-          )}
         </View>
 
         <Text style={styles.title} numberOfLines={1}>

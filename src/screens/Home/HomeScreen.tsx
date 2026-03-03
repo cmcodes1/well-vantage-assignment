@@ -34,23 +34,22 @@ const INITIAL_PLANS: WorkoutPlan[] = [
   {id: '2', name: "Beginner's Full Body - 1 Day"},
 ];
 
-const HomeScreen: React.FC<MainStackScreenProps<'HomeTabs'>> = ({navigation}) => {
+const HomeScreen: React.FC<MainStackScreenProps<'HomeTabs'>> = ({
+  navigation,
+}) => {
   const [activeTab, setActiveTab] = useState('workout');
   const [plans, setPlans] = useState<WorkoutPlan[]>(INITIAL_PLANS);
 
-  const handleDeletePlan = useCallback(
-    (id: string) => {
-      Alert.alert('Delete Plan', 'Are you sure you want to delete this plan?', [
-        {text: 'Cancel', style: 'cancel'},
-        {
-          text: 'Delete',
-          style: 'destructive',
-          onPress: () => setPlans(prev => prev.filter(p => p.id !== id)),
-        },
-      ]);
-    },
-    [],
-  );
+  const handleDeletePlan = useCallback((id: string) => {
+    Alert.alert('Delete Plan', 'Are you sure you want to delete this plan?', [
+      {text: 'Cancel', style: 'cancel'},
+      {
+        text: 'Delete',
+        style: 'destructive',
+        onPress: () => setPlans(prev => prev.filter(p => p.id !== id)),
+      },
+    ]);
+  }, []);
 
   const handleAddPlan = useCallback(() => {
     // Navigate to Add Workout Plan screen
@@ -72,7 +71,9 @@ const HomeScreen: React.FC<MainStackScreenProps<'HomeTabs'>> = ({navigation}) =>
       <View style={styles.planRow}>
         <TouchableOpacity
           style={styles.planTextWrapper}
-          onPress={() => navigation.navigate('AddWorkoutPlan', {planId: item.id})}
+          onPress={() =>
+            navigation.navigate('AddWorkoutPlan', {planId: item.id})
+          }
           activeOpacity={0.7}>
           <Text style={styles.planName}>{item.name}</Text>
         </TouchableOpacity>
@@ -94,9 +95,8 @@ const HomeScreen: React.FC<MainStackScreenProps<'HomeTabs'>> = ({navigation}) =>
         renderItem={renderPlan}
         contentContainerStyle={styles.planList}
         showsVerticalScrollIndicator={false}
+        ListFooterComponent={<FAB onPress={handleAddPlan} style={styles.fab} />}
       />
-
-      <FAB onPress={handleAddPlan} style={styles.fab} />
     </View>
   );
 
@@ -148,7 +148,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.base,
     paddingVertical: spacing.md,
     marginTop: spacing['3xl'],
-    borderRadius: radius.sm,
+    borderRadius: radius.md,
+    elevation: 3,
+    shadowOffset: {width: 0, height: 3},
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
   },
   sectionTitle: {
     ...textPresets.bodyMedium,
@@ -163,8 +167,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingVertical: spacing.md,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: colors.borderLight,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.planBorder,
   },
   planTextWrapper: {
     flex: 1,
@@ -175,7 +179,7 @@ const styles = StyleSheet.create({
     color: colors.text,
   },
   fab: {
-    marginVertical: spacing.xl,
+    marginTop: 28,
   },
   emptyState: {
     flex: 1,

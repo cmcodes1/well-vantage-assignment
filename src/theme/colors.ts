@@ -70,6 +70,7 @@ export const lightColors = {
   deleteIcon: palette.error,
   fabBackground: palette.primary,
   fabIcon: palette.white,
+  planBorder: '#737373',
 } as const;
 
 export const darkColors = {
