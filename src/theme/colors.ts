@@ -37,6 +37,12 @@ export const palette = {
   // Transparent
   transparent: 'transparent',
   overlay: 'rgba(0, 0, 0, 0.5)',
+
+  // Semantic
+  green700: '#28A745',
+  charcoal: '#333333',
+  gray: '#737373',
+  orange: '#FF9933',
 } as const;
 
 export type PaletteColor = keyof typeof palette;
@@ -62,19 +68,19 @@ export const lightColors = {
   inputBackground: palette.white,
   headerBackground: palette.primary,
   headerText: palette.white,
-  tabActive: '#28A745',
-  tabInactive: '#333333',
+  tabActive: palette.green700,
+  tabInactive: palette.charcoal,
   tabUnderline: palette.primary,
-  tabBorderBottom: '#737373',
+  tabBorderBottom: palette.gray,
   badgeBackground: palette.primary,
   badgeText: palette.white,
   deleteIcon: palette.error,
   fabBackground: palette.primary,
   fabIcon: palette.white,
-  planBorder: '#737373',
-  notesText: '#737373',
-  wordCounterText: '#FF9933',
-  slotBorder: '#28A745',
+  planBorder: palette.gray,
+  notesText: palette.gray,
+  wordCounterText: palette.orange,
+  slotBorder: palette.green700,
 } as const;
 
 export const darkColors = {
