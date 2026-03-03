@@ -19,7 +19,11 @@ interface TabBarProps {
   onTabPress: (key: string) => void;
 }
 
-export const TabBar: React.FC<TabBarProps> = ({tabs, activeTab, onTabPress}) => (
+export const TabBar: React.FC<TabBarProps> = ({
+  tabs,
+  activeTab,
+  onTabPress,
+}) => (
   <View style={styles.container}>
     {tabs.map(tab => {
       const isActive = tab.key === activeTab;
@@ -30,11 +34,7 @@ export const TabBar: React.FC<TabBarProps> = ({tabs, activeTab, onTabPress}) => 
           onPress={() => onTabPress(tab.key)}
           accessibilityRole="tab"
           accessibilityState={{selected: isActive}}>
-          <Text
-            style={[
-              styles.tabText,
-              isActive && styles.activeTabText,
-            ]}>
+          <Text style={[styles.tabText, isActive && styles.activeTabText]}>
             {tab.label}
           </Text>
           {isActive && <View style={styles.activeIndicator} />}
@@ -47,12 +47,13 @@ export const TabBar: React.FC<TabBarProps> = ({tabs, activeTab, onTabPress}) => 
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     backgroundColor: colors.background,
     borderBottomWidth: 1,
-    borderBottomColor: colors.borderLight,
+    borderBottomColor: colors.tabBorderBottom,
+    marginHorizontal: spacing.xl,
   },
   tab: {
-    flex: 1,
     alignItems: 'center',
     paddingVertical: spacing.md,
     position: 'relative',
@@ -60,6 +61,7 @@ const styles = StyleSheet.create({
   tabText: {
     ...textPresets.tabLabel,
     color: colors.tabInactive,
+    fontWeight: 'bold',
   },
   activeTabText: {
     color: colors.tabActive,
@@ -67,10 +69,10 @@ const styles = StyleSheet.create({
   },
   activeIndicator: {
     position: 'absolute',
-    bottom: 0,
-    left: spacing.lg,
-    right: spacing.lg,
-    height: 3,
+    bottom: -1,
+    left: 0,
+    right: 0,
+    height: 4,
     backgroundColor: colors.tabUnderline,
     borderTopLeftRadius: 2,
     borderTopRightRadius: 2,
