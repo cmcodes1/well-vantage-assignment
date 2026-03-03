@@ -12,7 +12,20 @@
           "package_name": "com.wellvantageapp"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "89573235463-b4dp3v336d6pbe9n2qhs9j01rjtm4uno.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.wellvantageapp",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "89573235463-diikrgo2h09amrue63np67aqkm71ii6b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDApSPyunik3qjS73zufY7d802X9qvWVlw"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "89573235463-diikrgo2h09amrue63np67aqkm71ii6b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "89573235463-abji7k4tknr65d1lsa9osp0siu4j12kn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.WellVantageApp"
+              }
+            }
+          ]
         }
       }
     }
