@@ -1,19 +1,57 @@
-# WellVantageApp
+# WellVantage
 
-A production-ready React Native app built with best practices.
+A React Native fitness management app for personal trainers — create workout plans, set availability, and manage client bookings.
+
+Built with TypeScript, React Native 0.84, and Firebase authentication.
+
+## Features
+
+- **Google Sign-In** — OAuth via Google Sign-In SDK + Firebase Auth
+- **Workout Plans** — Create, view, and delete multi-day plans with exercises (sets/reps), muscle groups, and notes
+- **Availability Scheduling** — Set available dates/times with repeat session support and an interactive calendar
+- **Client Slot Booking** — View and manage booked/open time slots on a calendar view
+- **Persistent State** — Auth and app preferences persisted with MMKV via Zustand
 
 ## Tech Stack
 
 | Category             | Library                                       |
 | -------------------- | --------------------------------------------- |
+| **Framework**        | React Native 0.84 + React 19                  |
 | **Language**         | TypeScript (strict mode)                      |
-| **Navigation**       | React Navigation (native stack + bottom tabs) |
+| **Auth**             | Firebase Auth + Google Sign-In                |
+| **Navigation**       | React Navigation (native stack)               |
 | **State Management** | Zustand (persisted with MMKV)                 |
-| **Data Fetching**    | TanStack React Query + Axios                  |
+| **Data Fetching**    | TanStack React Query v5 + Axios               |
 | **Storage**          | react-native-mmkv                             |
 | **Animations**       | react-native-reanimated                       |
 | **Gestures**         | react-native-gesture-handler                  |
+| **Icons**            | react-native-svg (custom SVG icon components) |
 | **Testing**          | Jest + React Native Testing Library           |
+
+## Screens
+
+| Screen                | Description                                                                            |
+| --------------------- | -------------------------------------------------------------------------------------- |
+| **Login**             | Google OAuth sign-in via Firebase                                                      |
+| **Home**              | Main hub with tabbed view — Workout plans, Clients (coming soon), and Availability     |
+| **Add Workout Plan**  | Form to create plans with days, muscle groups, exercises (sets/reps), and notes        |
+| **Set Availability**  | Date/time picker with repeat sessions, interactive calendar, and session naming        |
+| **Book Client Slots** | Calendar view of available time slots with Open/Booked status badges and slot deletion |
+
+## Navigation
+
+```
+RootNavigator (NativeStack)
+├── Auth (unauthenticated)
+│   └── AuthNavigator
+│       └── Login
+└── MainTabs (authenticated)
+    └── MainTabNavigator (NativeStack)
+        ├── HomeTabs (in-screen tab bar: Workout / Client / Availability)
+        ├── AddWorkoutPlan
+        ├── SetAvailability
+        └── BookClientSlots
+```
 
 ## Project Structure
 
@@ -21,26 +59,27 @@ A production-ready React Native app built with best practices.
 src/
 ├── api/                 # Axios client & endpoint definitions
 │   ├── client.ts        # Configured Axios instance with interceptors
-│   └── endpoints.ts     # API endpoint functions by resource
-├── assets/              # Fonts, images, icons
+│   └── endpoints.ts     # API endpoint functions (user profile, etc.)
+├── assets/              # Fonts & images
 ├── components/
-│   ├── common/          # Layout components (ScreenWrapper, ErrorBoundary, etc.)
-│   └── ui/              # Reusable UI primitives (Button, Input, Typography)
-├── config/              # Environment configuration
-├── constants/           # App-wide string & numeric constants
-├── hooks/               # Custom React hooks (data fetching, utilities)
-├── navigation/          # React Navigation stacks & tabs
-├── screens/             # Screen components grouped by feature
-│   ├── Auth/
-│   ├── Home/
-│   ├── Profile/
-│   └── Settings/
-├── services/            # Device services (storage, notifications, etc.)
-├── store/               # Zustand stores (auth, app preferences)
-├── theme/               # Design tokens (colors, spacing, typography, shadows)
-├── types/               # Shared TypeScript types & navigation params
-├── utils/               # Pure helper functions
-└── App.tsx              # Root component with all providers
+│   ├── common/          # Header, TabBar, FAB, Calendar, ErrorBoundary, etc.
+│   ├── icons/           # SVG icon components (Back, Calendar, Delete, Google, etc.)
+│   └── ui/              # Reusable primitives (Button, Input, Typography)
+├── config/              # Environment configuration (dev/staging/prod)
+├── constants/           # App-wide constants
+├── hooks/               # Custom hooks (useUser, useDebounce)
+├── navigation/          # React Navigation stacks
+├── screens/             # Feature screens
+│   ├── Auth/            # LoginScreen
+│   ├── Availability/    # SetAvailabilityScreen, BookClientSlotsScreen
+│   ├── Home/            # HomeScreen
+│   └── Workout/         # AddWorkoutPlanScreen
+├── services/            # Google Auth service, MMKV storage
+├── store/               # Zustand stores (authStore, appStore)
+├── theme/               # Design tokens (colors, metrics, typography)
+├── types/               # TypeScript types & navigation params
+├── utils/               # Helper functions (scaling, formatting)
+└── App.tsx              # Root component with providers
 ```
 
 ## Getting Started
@@ -92,12 +131,17 @@ npm run android
 | `npm run clean`         | Clean Android & iOS build artifacts    |
 | `npm run pod-install`   | Install iOS CocoaPods                  |
 
-## Best Practices Included
+## Architecture Highlights
 
 - **Path aliases** — `@/` maps to `src/` (configured in Babel + TSConfig)
 - **Strict TypeScript** — `strict`, `noImplicitAny`, `strictNullChecks` enabled
 - **Type-safe navigation** — Fully typed route params with React Navigation
+- **Zustand + MMKV** — Lightweight, fast state persistence without Redux boilerplate
+- **React Query** — Data-fetching layer with query key factory pattern, retry, and caching
 - **Responsive scaling** — `scale()`, `moderateScale()` helpers based on reference device
+- **Barrel exports** — Clean imports via `index.ts` re-exports in each module
+- **Theme system** — Centralized design tokens for colors, spacing, typography, and shadows
+- **Error boundary** — Global crash safety wrapper around the app
 - **Design tokens** — Centralized colors, spacing, typography, shadows
 - **API layer** — Axios with request/response interceptors, token injection, error handling
 - **React Query** — Factory query-key pattern, configurable stale/cache times
